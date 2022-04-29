@@ -1,0 +1,15 @@
+#!/bin/zsh
+
+m=${1}
+n=${2}
+l=$(($m | $n) |awk '{}END{print NR}')
+
+echo $m
+echo $n
+echo $l
+
+($m | $n) | awk -v y="$l" '{print "\\node at (0.6, " y/2 + 0.5 + x ")[right, text width=9cm]\{\\texttt\{" $0 "\}\};"; x-=0.5 }'
+
+
+
+

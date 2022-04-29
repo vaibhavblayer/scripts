@@ -1,0 +1,29 @@
+#!/bin/zsh
+
+arg1=${1}
+arg2=${2}
+arg3=${3}
+
+#step-1
+echo "\\\begin{center}" > temp.tex
+echo "\\\begin{tikzpicture}" >> temp.tex
+
+
+#step-2
+($arg1 | $arg2 )| awk '{}END{print "\\draw[rounded corners] (0, 0) rectangle (10, " NR/2 + 1 ");\n\\draw[-Stealth, ultra thick] (0.5, " NR/2 + 0.5 ") -- (0.6, " NR/2 + 0.5 ");"}' >> temp.tex
+
+#step-3
+($arg1 | $arg2) | awk -v t="$arg" '{}END{print "\\node at (0.6, " NR/2 + 0.5 ")[right, text width=9cm] \{\\texttt\{" t "\}\};"}' >> temp.tex
+
+
+#step-4
+n=$(($arg1 | $arg2)| awk '{}END{print NR}')
+($arg1 | $arg2) | awk -v y="$n" '{print "\\node at (0.6, " y/2 + x")[right, text width=9cm] \{\\texttt\{" $0 "\}\};"; x-=0.5 }' >> temp.tex
+
+
+#step-5
+echo "\\\end{tikzpicture}" >> temp.tex
+echo "\\\end{center}" >> temp.tex
+
+
+

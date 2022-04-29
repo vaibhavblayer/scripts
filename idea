@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+echo "Logging the idea ->"
+echo "Loading the SQLite database..."
+sleep 1
+echo " "
+
+python3.9 ~/sqlite-projects/ideas-for-blog-posts/ideas.py
+
+sleep 1
+echo " "
+echo "Idea successfully logged."

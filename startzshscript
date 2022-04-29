@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+
+n=${1:-script}
+
+echo "#!/bin/zsh" > $n
+
+

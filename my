@@ -1,0 +1,26 @@
+#!/bin/zsh
+#my -> my youtube
+
+n=${1:-3}
+output=${2:-box}
+table=${3:-latex_tutorials}
+
+echo "Journal Entry ->"
+echo "Loading the SQLite database..."
+sleep 0.75
+echo " "
+echo "Database : youtube.db"
+echo "Table : $table" 
+echo " "
+
+awk -v var="$output" 'NR == 1 {print ".mode "var}' /Users/vaibhavblayer/scripts/my > sq
+awk -v var="$n" -v var2="$table" 'NR == 2 {print "select * from "var2" order by rowid desc limit "var ";"}' /Users/vaibhavblayer/scripts/my >> sq
+
+
+/usr/local/Cellar/sqlite/3.38.2/bin/sqlite3  /Users/vaibhavblayer/sqlite-projects/my-youtube-channels/youtube.db ".read sq" 
+
+
+rm sq
+
+
+

@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+echo "Journal Entry ->"
+echo "Loading the SQLite database..."
+sleep 1
+echo " "
+
+python3.9 ~/sqlite-projects/my-daily-journal/journal.py
+
+sleep 1
+echo " "
+echo "Entry successful."

@@ -1,0 +1,21 @@
+#!/bin/zsh
+
+n=${1:-3}
+output=${2:-box}
+
+echo "Ideas for blog-posts ->"
+echo "Loading the SQLite database..."
+sleep 0.75
+echo " "
+
+awk -v var="$output" 'NR == 1 {print ".mode "var}' /Users/vaibhavblayer/scripts/ideas > sq
+awk -v var="$n" 'NR == 2 {print "select rowid,  * from ideas order by rowid desc limit "var ";"}' /Users/vaibhavblayer/scripts/ideas >> sq
+
+
+/usr/local/Cellar/sqlite/3.38.2/bin/sqlite3  /Users/vaibhavblayer/sqlite-projects/ideas-for-blog-posts/ideas.db ".read sq" 
+
+
+rm sq
+
+
+

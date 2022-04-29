@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+inputfile=${1}
+outputfile=${2}
+
+awk -f /Users/vaibhavblayer/awk-scripts/writeTexTitle $inputfile > $outputfile
+
+awk -f /Users/vaibhavblayer/awk-scripts/writeTexBody $inputfile >> $outputfile

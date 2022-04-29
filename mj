@@ -1,0 +1,21 @@
+#!/bin/zsh
+
+n=${1:-3}
+output=${2:-box}
+
+echo "Journal Entry ->"
+echo "Loading the SQLite database..."
+sleep 0.75
+echo " "
+
+awk -v var="$output" 'NR == 1 {print ".mode "var}' /Users/vaibhavblayer/scripts/mj > sq
+awk -v var="$n" 'NR == 2 {print "select rowid,  * from journalDecrypted order by rowid desc limit "var ";"}' /Users/vaibhavblayer/scripts/mj >> sq
+
+
+/usr/local/Cellar/sqlite/3.38.*/bin/sqlite3  /Users/vaibhavblayer/sqlite-projects/my-daily-journal/journal.db ".read sq" 
+
+
+rm sq
+
+
+

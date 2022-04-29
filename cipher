@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+echo "Logging the cipher ->"
+echo "Loading the SQLite database..."
+sleep 1
+echo " "
+
+python3.9 ~/sqlite-projects/ciphered/ciphered.py
+
+sleep 1
+echo " "
+echo "Cipher successfully logged."
+

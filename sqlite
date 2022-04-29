@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+echo "Journal Entry ->"
+echo "Loading the SQLite database..."
+sleep 1
+echo " "
+
+/usr/local/Cellar/sqlite/3.38.*/bin/sqlite3     
+
