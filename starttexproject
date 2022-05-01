@@ -1,0 +1,24 @@
+#!/bin/zsh
+
+title=${1}
+
+time=$(date +"%d%m%y%H%M")
+p=/Users/vaibhavblayer/ref-dir/tex
+
+# step-1
+mkdir $time && cd $_ 
+
+# step-2 main.sty
+cp $p/mechanics.sty ./main.sty
+cp -r $p/stys ./
+
+# step-3 header
+sed -e "s/Python/$title/" < ./stys/myheaders.sty > myheaders.sty
+mv myheaders.sty ./stys/myheaders.sty
+
+# step-4 tex-files
+cp $p/main.tex ./
+cp -r $p/tex-files ./
+
+
+

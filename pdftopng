@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+
+# input-file -> main.pdf, output-file -> main.png
+python3 $HOME/my-utility-scripts/pdftopng-for-single-page.py main.pdf main
+
+open .
