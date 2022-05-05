@@ -1,0 +1,33 @@
+#!/bin/zsh
+
+if=${1}
+ff=$(echo "$if" | cut -f 1 -d '.')
+
+
+awk -f /Users/vaibhavblayer/awk-scripts/writeTexTitle $if > $ff.tex
+awk -f /Users/vaibhavblayer/awk-scripts/writeThumbnail $if >> $ff.tex
+
+cp /Users/vaibhavblayer/ref-dir/tex/thumbnails/thumbnail.sty ./
+#cp -r /Users/vaibhavblayer/ref-dir/tex/logo ./
+
+echo "\\\\documentclass{article}" > main.tex
+echo "\\\\usepackage{thumbnail}" >> main.tex
+echo "\\\\begin{document}" >> main.tex
+echo "\\\\Huge" >> main.tex
+echo "\\\\pagecolor{matte-black}" >> main.tex
+echo "\\\\color{orange}" >> main.tex
+echo "\\\\input{" >> main.tex
+echo $ff "}" >> main.tex
+echo "\\\\pagebreak" >> main.tex
+echo "\\\\end{document}" >> main.tex
+
+
+pdflatex -interaction=nonstopmode -shell-escape main.tex
+
+python3 $HOME/my-utility-scripts/pdftopng-for-single-page.py main.pdf main
+
+
+open .
+
+
+

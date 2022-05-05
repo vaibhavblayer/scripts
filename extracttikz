@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+if=${1}
+
+sl=$(awk '/\\begin\{center\}/{print NR}' $if)
+el=$(awk '/\\end\{center\}/{print NR}' $if)
+
+awk -v sl="$sl" -v el="$el" '(NR>=sl && NR <= el){print}' $if > picture.tex
+
+

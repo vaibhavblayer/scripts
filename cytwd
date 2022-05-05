@@ -1,0 +1,47 @@
+#!/bin/zsh
+
+if=${1}
+iff=${2}
+
+sl=$(awk '/\\begin\{center\}/{print NR}' $if)
+el=$(awk '/\\end\{center\}/{print NR}' $if)
+
+awk -v sl="$sl" -v el="$el" '(NR>=sl && NR <= el){print}' $if > picture.tex
+
+ff=$(echo "$iff" | cut -f 1 -d '.')
+
+awk -f /Users/vaibhavblayer/awk-scripts/writeThumbnail $iff > text.tex
+
+cp /Users/vaibhavblayer/ref-dir/tex/thumbnails/thumbnail.sty ./
+
+echo "\\\\documentclass{article}" > main.tex
+echo "\\\\usepackage{thumbnail}" >> main.tex
+echo "\\\\begin{document}" >> main.tex
+echo "\\\\Huge" >> main.tex
+echo "\\\\pagecolor{matte-black}" >> main.tex
+echo "\\\\color{orange}" >> main.tex
+
+echo "\\\\vspace*{\\\\fill}" >> main.tex
+
+echo "\\\\begin{minipage}[c]{0.5\linewidth}" >> main.tex
+echo "\\\\input{text}" >> main.tex
+echo "\\\\end{minipage}" >> main.tex
+
+echo "\\\\begin{minipage}[c]{0.5\linewidth}" >> main.tex
+echo "\\\\input{picture}" >> main.tex
+echo "\\\\end{minipage}" >> main.tex
+
+echo "\\\\vspace*{\\\\fill}" >> main.tex
+
+echo "\\\\pagebreak" >> main.tex
+echo "\\\\end{document}" >> main.tex
+
+
+pdflatex -interaction=nonstopmode -shell-escape main.tex
+python3 $HOME/my-utility-scripts/pdftopng-for-single-page.py main.pdf main
+
+open .
+
+
+
+

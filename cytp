@@ -1,0 +1,16 @@
+#!/bin/zsh
+
+#cytp - create youtube tex project
+
+name=${1}
+
+mkdir $name
+cd $_
+
+touch main.tex
+echo "\\\\documentclass{article}" >> main.tex
+echo "\\\\begin{document}" >> main.tex
+echo "\\\\end{document}" >> main.tex
+
+open -a texmaker main.tex
+

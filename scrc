@@ -1,0 +1,14 @@
+#!/bin/zsh
+
+t=${1:-5}
+dt=${2:-1}
+n=$(($t/$dt))
+
+time=$(date +%d%m%y%H%M)
+
+mkdir $time
+cd $_
+
+for ((i=1; i<=$n; i++))
+do screencapture -T $dt ./$i.png
+done
