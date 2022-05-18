@@ -1,0 +1,71 @@
+#!/bin/zsh -xv
+
+topic=${1:-Mechanics}
+pn=${2} #problem-number
+
+mkdir $(echo $topic-$pn)
+cd $_
+mkdir square-sized hr-sized vr-sized stys tex-files
+
+sqsm=./square-sized/main.tex
+hrsm=./hr-sized/main.tex
+vrsm=./vr-sized/main.tex
+sqsms=./square-sized/main.sty
+hrsms=./hr-sized/main.sty
+vrsms=./vr-sized/main.sty
+
+
+
+# stys
+echo "\\\\usepackage{geometry}" >> ./stys/stys.sty
+echo "\\\\usepackage{graphics}" >> ./stys/stys.sty
+echo "\\\\usepackage{../stys/mycolors}" >> ./stys/stys.sty
+#echo "\\\\usepackage{../stys/mypackages}" >> ./stys/stys.sty
+echo "\\\\usepackage{../stys/myshapes}" >> ./stys/stys.sty
+echo "\\\\usepackage{../stys/mybackground}" >> ./stys/stys.sty
+echo "\\\\usepackage{../stys/myheaders}" >> ./stys/stys.sty
+
+cp /Users/vaibhavblayer/ref-dir/tex/stys/* ./stys
+
+echo "\\\\ProvidesPackage{main}" |tee -a $sqsms $hrsms $vrsms 
+#echo "\\\\usepackage{fancyhdr}" | tee -a $sqsms $hrsms $vrsms
+#echo "\\\\pagestyle{fancy}" | tee -a $sqsms $hrsms $vrsms
+#echo "\\\\fancyhf{}" | tee -a $sqsms $hrsms $vrsms
+#echo "\\\\chead{Hello}" | tee -a $sqsms $hrsms $vrsms
+echo "\\\\usepackage{../stys/stys}" |tee -a $sqsms $hrsms $vrsms
+
+
+echo "\\\\documentclass{article}" |tee -a $sqsm $hrsm $vrsm
+echo "\\\\usepackage{main}" |tee -a $sqsm $hrsm $vrsm
+
+echo "\\\\geometry{paperheight=5 in, paperwidth=5 in, left=5 mm, right=5 mm}\n" >> $sqsm
+echo "\\\\geometry{paperheight=4.5 in, paperwidth=8 in, left=5 mm, right=5 mm}\n" >> $hrsm
+echo "\\\\geometry{paperheight=8 in, paperwidth=4.5 in, left=5 mm, right=5 mm}\n" >> $vrsm
+
+echo "\\\\begin{document}\n" |tee -a $sqsm $hrsm $vrsm
+echo "\\\\pagecolor{matte-black}" |tee -a $sqsm $hrsm $vrsm
+echo "\\\\color{orange}\n" |tee -a $sqsm $hrsm $vrsm
+echo "\\\\begin{minipage}{0.06\\\\linewidth}\n\\\\begin{center}" |tee -a $sqsm $hrsm $vrsm
+echo "\\\\scalebox{2}{$pn}\\\\\\\\\n\\\\scalebox{0.65}{99/22}" |tee -a $sqsm $hrsm $vrsm
+echo "\\\\end{center}\n\\\\end{minipage}" |tee -a $sqsm $hrsm $vrsm
+
+echo "{\\\\vrule width 1.5 pt}" |tee -a $sqsm $hrsm $vrsm
+
+echo "\\\\begin{minipage}{0.94\\\\linewidth}" |tee -a $sqsm $hrsm $vrsm
+echo "\\\\input{../tex-files/problem}" |tee -a $sqsm $hrsm $vrsm
+echo "\\\\input{../tex-files/options}" |tee -a $sqsm $hrsm $vrsm
+echo "\\\\end{minipage}\n" |tee -a $sqsm $hrsm $vrsm
+
+echo "\\\\begin{center}" |tee -a $sqsm $hrsm $vrsm 
+echo "\\\\input{../tex-files/figure}" |tee -a $sqsm $hrsm $vrsm
+echo "\\\\end{center}\n" |tee -a $sqsm $hrsm $vrsm
+
+
+echo "\\\\end{document}\n" |tee -a $sqsm $hrsm $vrsm
+
+echo "{Question}" >> ./tex-files/problem.tex
+echo "{Options}" >> ./tex-files/options.tex
+
+echo "{figure}" >> ./tex-files/figure.tex
+
+

@@ -3,14 +3,23 @@
 #cytp - create youtube tex project
 
 name=${1}
+t=${2:-300}
+dt=${3:-1}
 
 mkdir $name
 cd $_
 
+my-screencapture $t $dt &
+
 touch main.tex
 echo "\\\\documentclass{article}" >> main.tex
+echo "\\\\usepackage{geometry}" >> main.tex
+echo "\\\\geometry{paperheight=5 in, paperwidth=4 in}" >> main.tex
+
 echo "\\\\begin{document}" >> main.tex
 echo "\\\\end{document}" >> main.tex
 
 open -a texmaker main.tex
+
+
 

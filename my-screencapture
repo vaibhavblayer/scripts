@@ -1,0 +1,17 @@
+#!/bin/zsh
+
+#takes screenshoot at every dt(second argument) seconds fot t(first argument) time
+#my-screencapture -> screen capture at regular interval
+
+t=${1:-5}
+dt=${2:-1}
+n=$(($t/$dt))
+
+time=$(date +%d%m%y%H%M)
+
+mkdir $time
+cd $_
+
+for ((i=1; i<=$n; i++))
+do screencapture -T $dt ./$i.png
+done

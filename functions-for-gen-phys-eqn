@@ -1,0 +1,95 @@
+
+refdir=/Users/vaibhavblayer/ref-dir/tex/gen-post
+
+function createSkeleton {
+			mkdir $1$2$3
+			cd $_
+			touch preamble.sty main.tex
+			printf "\\ProvidesPackage{preamble}\n" >> preamble.sty
+			printf "\\\usepackage{amsmath}\n" >> preamble.sty
+			printf "\\\usepackage[utopia]{mathdesign}\n" >> preamble.sty
+			printf "\\\renewcommand{\\\familydefault}{lmtt}\n" >> preamble.sty
+
+			
+			printf "\\documentclass{article}\n" >> main.tex
+			printf "\\\usepackage{preamble}\n" >> main.tex
+			printf "\\\begin{document}\n" >> main.tex
+
+}
+
+
+function insertDimension {
+			printf "\\\usepackage{geometry}\n" >> preamble.sty
+			printf "\\geometry{\n\t paperwidth=$1 in,\n\t paperheight=4.5 in,\n\t top=16 mm,\n\t left=8 mm,\n\t right=8 mm,\n\t bottom=18 mm\n\t}\n" >> preamble.sty
+}
+
+
+function insertTopic {
+			printf "\\\usepackage{graphics}\n" >> preamble.sty
+			printf "\\\usepackage{fancyhdr}\n" >> preamble.sty
+			printf "\\pagestyle{fancy}\n" >> preamble.sty
+			printf "\\\fancyhead[C]{\n\t\\\textcolor{$4}{\\\texttt{\\\scalebox{0.75}{$1$2$3}}}\n\t}\n" >> preamble.sty
+			printf "\\\renewcommand{\\headrulewidth}{0 mm}\n" >> preamble.sty
+			printf "\\\renewcommand{\\\footrulewidth}{0 mm}\n" >> preamble.sty
+}
+
+function insertLevel {
+			printf "\\\fancyfoot[C]{\n\t\\\begin{center}\n\t\\\begin{tikzpicture}\n\t\t" >> preamble.sty
+			printf "\\\foreach \\\x in {-1, -0.5, 0, 0.5, 1}{\\draw (\\\x, 0) circle(2pt);};\n\t\t" >> preamble.sty
+			printf "\\\foreach \\\x in {1, ..., $1}{\\\fill[$2] (0.5*\\\x -1.5, 0) circle(1.4pt);};\n\t" >> preamble.sty
+			printf "\\\end{tikzpicture}\n\t\\\end{center}\n\t}\n" >> preamble.sty
+}
+
+
+function insertTitle {
+			printf "\\\begin{center}\n\t" >> main.tex
+			printf "\\\texttt{$1}\n" >> main.tex
+			printf "\\\end{center}\n" >> main.tex
+			printf "\\\vspace*{\\\fill}\n\n" >> main.tex
+}
+
+function insertBackgroundColor {
+			echo "\\\\pagecolor{$1}" >> main.tex
+}
+
+function insertForegroundColor {
+			echo "\\\\color{$1}" >> main.tex
+}
+
+function insertEquation {
+			printf "\\[ a+b \\]\n\n" >> main.tex
+
+}
+
+
+function insertTikzEnv {
+			printf "\\\usepackage{tikz}\n" >> preamble.sty
+			printf "\\\usepackage{kinematikz}\n" >> preamble.sty
+			
+			printf "\\\begin{center}\n" >> main.tex
+			printf "\\\begin{tikzpicture}[very thick]\n\t" >> main.tex
+			printf "\\\draw (0,0) circle[radius=1];\n" >> main.tex
+			printf "\\\end{tikzpicture}\n" >> main.tex
+			printf "\\\end{center}\n\n" >> main.tex
+}
+
+
+function help {
+			printf "SUMMARY OF GEN-PHYS-EQN COMMAND\n\v" | fmt -c
+			printf "\t-T topic name\n" | fmt -t 8
+				printf "\t M for mechanics (default)\n" | fmt -t 12
+				printf "\t E for electrostatics\n" | fmt -t 12
+				printf "\t F for fluid mechanics\n" | fmt -t 12
+				printf "\t W for wave\n" | fmt -t 12
+				printf "\t E for electromagnetic wave\n" | fmt -t 12
+				printf "\t ED for electrodynamics\n" | fmt -t 12
+				printf "\t M for modern physics\n\n" | fmt -t 12
+
+			printf "\t-t title (default is entropy)\n" | fmt -t 8
+			printf "\t-w width (default is 4.5 in)\n" | fmt -t 8
+			printf "\t   height (fixed 4.5 in)\n" | fmt -t 8
+			printf "\t-b background color (default is black!83)\n" | fmt -t 8
+			printf "\t-f foreground color (default is teal)\n" | fmt -t 8
+			printf "\t-l level 1-5 (default is 3)\n" | fmt -t 8
+
+}

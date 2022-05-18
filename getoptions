@@ -1,0 +1,16 @@
+#!/bin/zsh
+
+#USAGE="usage: $0 -x -y"
+
+while getopts :tbc: opt_char
+do
+	case $opt_char in
+	t)
+		echo "Option title was called. $OPTARG";;
+	b)
+		echo "Option background-color was called. Argument called is $OPTARG";;
+	c)
+		echo "Option color was called $OPTARG" ;;
+	esac
+done
+shift "$(($OPTIND -1))"

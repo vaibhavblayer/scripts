@@ -1,0 +1,52 @@
+
+refdir=/Users/vaibhavblayer/ref-dir/tex/gen-post
+
+function structureProblem {
+			cp -r $refdir/problem/main ./
+			cp -r $refdir/problem/post ./
+}
+
+function structureEquation {
+			cp -r $refdir/equation/main ./
+			cp -r $refdir/equation/post ./
+}
+
+
+function insertHeader {
+			local fpath=./post/stys
+			sed -e "s/Python/$1/" < $fpath/myheaders.sty > $fpath/myheader.sty
+			rm $fpath/myheaders.sty
+			mv $fpath/myheader.sty $fpath/myheaders.sty
+}
+
+
+function insertLevel {
+			local fpath=./post/stys
+			sed -e "s/\[3\]/\[$1\]/" < $fpath/myheaders.sty > $fpath/myheader.sty
+			rm $fpath/myheaders.sty
+			mv $fpath/myheader.sty $fpath/myheaders.sty
+}
+
+
+function insertTitle {
+			local fpath=./post
+			sed -e "s/{title}/{$1}/" < $fpath/main.tex > $fpath/tempmain.tex
+			rm $fpath/main.tex
+			mv $fpath/tempmain.tex $fpath/main.tex
+}
+
+function insertBackgroundColor {
+			local fpath=./post
+			sed -e "s/pagecolor{matte-black}/pagecolor{$1}/" < $fpath/main.tex > $fpath/tempmain.tex
+			rm $fpath/main.tex
+			mv $fpath/tempmain.tex $fpath/main.tex
+}
+
+function insertForegroundColor {
+			local fpath=./post
+			sed -e "s/\\color{orange}/\\color{$1}/" < $fpath/main.tex > $fpath/tempmain.tex
+			rm $fpath/main.tex
+			mv $fpath/tempmain.tex $fpath/main.tex
+}
+
+

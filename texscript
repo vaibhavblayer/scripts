@@ -1,0 +1,20 @@
+#!/bin/zsh
+
+. /Users/vaibhavblayer/scripts/listoffunctions
+
+while getopts :pen:h:t:l:b:f: opt
+do
+	case "$opt" in
+	p) structureProblem ;;
+	e) structureEquation ;;
+	n) insertProblemNumber $OPTARG ;;
+	h) insertHeader $OPTARG ;;
+	t) insertTitle $OPTARG ;;
+	l) insertLevel $OPTARG ;;
+	b) insertBackgroundColor $OPTARG ;;
+	f) insertForegroundColor $OPTARG ;;
+	*) echo "$opt" ;;
+	esac
+done
+
+open -a texmaker ./main/* ./post/main.tex

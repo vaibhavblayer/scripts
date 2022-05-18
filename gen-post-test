@@ -1,0 +1,54 @@
+#!/bin/zsh
+
+while getopts :dncl: opt_char
+do
+	case $opt_char in
+	d)
+		gen_folder $OPTARG ;;
+	n)
+		echo "Option background-color was called. Argument called is $OPTARG";;
+	c)
+		echo "Option color was called $OPTARG" ;;
+	l)
+		echo "Hello" ;;
+	esac
+done
+shift "$(($OPTIND -1))"
+
+dirname=${1} #folder-name
+number=${2} #problem-number
+color=${3:-orange} #color of the text
+level=${4:-3}
+
+
+# folder from which some reference files needs to be copied
+refdir=/Users/vaibhavblayer/ref-dir/tex/problem-format
+
+
+gen_folder(){
+	mkdir $dirname-$number
+	cd $_
+	cp -r $refdir/main ./
+}
+
+mkdir post
+cd ./post
+
+sed -e "s/orange/$color/" < $refdir/post/main.tex > ./main.tex
+sed -e "s/paperheight=5 in, paperwidth=5 in/paperheight=5 in, paperwidth=5 in/" < $refdir/post/main.sty > ./main.sty
+
+
+mkdir stys
+cd ./stys
+
+sed -e "s/Python/$dirname/" < $refdir/post/stys/myheaders.sty > ./myheader.sty
+sed -e "s/level\[3\]/level\[$level\]/" < ./myheader.sty > ./myheaders.sty
+rm ./myheader.sty
+cp $refdir/post/stys/myfont.sty ./
+cp $refdir/post/stys/mymaths.sty ./
+cp $refdir/post/stys/mydefs.sty ./
+cp $refdir/post/stys/mycolors.sty ./
+cp $refdir/post/stys/myshapes.sty ./
+
+
+

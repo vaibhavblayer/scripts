@@ -1,0 +1,42 @@
+#!/bin/zsh
+
+day=$(date +%d%m%y)
+time=$(date +%H%M)
+topic="M"
+title="entropy"
+level="3"
+width="4.5"
+bg="black!83"
+fg="teal"
+. /Users/vaibhavblayer/scripts/functions-for-gen-phys-eqn
+
+while getopts :hT:t:l:w:b:f: opt
+do
+	case "$opt" in
+	h) help
+	   exit ;;
+	T) topic=$OPTARG ;;
+	t) title=$OPTARG ;;
+	l) level=$OPTARG ;;
+	w) width=$OPTARG ;;
+	b) bg=$OPTARG ;;
+	f) fg=$OPTARG ;;
+	*) echo "$opt" ;;
+	esac
+done
+
+
+createSkeleton $day $topic $time
+insertDimension $width
+insertTopic $day $topic $time $fg!60
+insertBackgroundColor $bg
+insertForegroundColor $fg
+insertLevel $level $fg!65
+insertTitle $title
+insertTikzEnv
+insertEquation
+
+printf "\\\vspace*{\\\fill}\n\\\end{document}" >> main.tex
+
+open -a texmaker preamble.sty main.tex
+

@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+
+for folder in *
+do
+	cd ./$folder
+	for file in *
+	do
+		cp $file ../
+	done
+	cd ../
+done
