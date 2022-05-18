@@ -7,7 +7,7 @@ title="entropy"
 level="3"
 width="4.5"
 bg="black!83"
-fg="teal"
+fg="black!5"
 . /Users/vaibhavblayer/scripts/functions-for-gen-phys-eqn
 
 while getopts :hT:t:l:w:b:f: opt
