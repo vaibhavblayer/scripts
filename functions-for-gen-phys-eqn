@@ -35,8 +35,8 @@ function insertTopic {
 
 function insertLevel {
 			printf "\\\fancyfoot[C]{\n\t\\\begin{center}\n\t\\\begin{tikzpicture}\n\t\t" >> preamble.sty
-			printf "\\\foreach \\\x in {-1, -0.5, 0, 0.5, 1}{\\draw (\\\x, 0) circle(2pt);};\n\t\t" >> preamble.sty
-			printf "\\\foreach \\\x in {1, ..., $1}{\\\fill[$2] (0.5*\\\x -1.5, 0) circle(1.4pt);};\n\t" >> preamble.sty
+			printf "\\\foreach \\\x in {-1, -0.5, 0, 0.5, 1}{\\draw (\\\x, 0) circle(2.2pt);};\n\t\t" >> preamble.sty
+			printf "\\\foreach \\\x in {1, ..., $1}{\\\fill[$2] (0.5*\\\x -1.5, 0) circle(1.5pt);};\n\t" >> preamble.sty
 			printf "\\\end{tikzpicture}\n\t\\\end{center}\n\t}\n" >> preamble.sty
 }
 
@@ -57,7 +57,7 @@ function insertForegroundColor {
 }
 
 function insertEquation {
-			printf "\\[ a+b \\]\n\n" >> main.tex
+			printf "\\[ \\\int_0^5 \\\dfrac{2x+1}{x^2+1} \, d\\!x \\]\n\n" >> main.tex
 
 }
 
@@ -76,7 +76,7 @@ function insertTikzEnv {
 
 function help {
 			printf "SUMMARY OF GEN-PHYS-EQN COMMAND\n\v" | fmt -c
-			printf "\t-T topic name\n" | fmt -t 8
+			printf "\t-p topic name\n" | fmt -t 8
 				printf "\t M for mechanics (default)\n" | fmt -t 12
 				printf "\t E for electrostatics\n" | fmt -t 12
 				printf "\t F for fluid mechanics\n" | fmt -t 12
@@ -84,6 +84,8 @@ function help {
 				printf "\t E for electromagnetic wave\n" | fmt -t 12
 				printf "\t ED for electrodynamics\n" | fmt -t 12
 				printf "\t M for modern physics\n\n" | fmt -t 12
+			
+			printf "\t-P topiccolor (default is white!20!purple)\n" | fmt -t 8
 
 			printf "\t-t title (default is entropy)\n" | fmt -t 8
 			printf "\t-w width (default is 4.5 in)\n" | fmt -t 8
@@ -91,5 +93,6 @@ function help {
 			printf "\t-b background color (default is black!83)\n" | fmt -t 8
 			printf "\t-f foreground color (default is teal)\n" | fmt -t 8
 			printf "\t-l level 1-5 (default is 3)\n" | fmt -t 8
+			printf "\t-L levelcolor (default is white!20!purple)\n" | fmt -t 8
 
 }

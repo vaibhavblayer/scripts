@@ -2,22 +2,26 @@
 
 day=$(date +%d%m%y)
 time=$(date +%H%M)
-topic="M"
+part="M"
 title="entropy"
 level="3"
 width="4.5"
-bg="black!83"
-fg="black!5"
+bg="white!85!orange"
+fg="white!10!purple"
+partcolor="white!20!purple"
+levelcolor="white!20!purple"
 . /Users/vaibhavblayer/scripts/functions-for-gen-phys-eqn
 
-while getopts :hT:t:l:w:b:f: opt
+while getopts :hp:P:t:l:L:w:b:f:: opt
 do
 	case "$opt" in
 	h) help
 	   exit ;;
-	T) topic=$OPTARG ;;
+	p) part=$OPTARG ;;
+	P) partcolor=$OPTARG ;;
 	t) title=$OPTARG ;;
 	l) level=$OPTARG ;;
+	L) levelcolor=$OPTARG ;;
 	w) width=$OPTARG ;;
 	b) bg=$OPTARG ;;
 	f) fg=$OPTARG ;;
@@ -26,12 +30,12 @@ do
 done
 
 
-createSkeleton $day $topic $time
+createSkeleton $day $part $time
 insertDimension $width
-insertTopic $day $topic $time $fg!60
+insertTopic $day $part $time $partcolor
 insertBackgroundColor $bg
 insertForegroundColor $fg
-insertLevel $level $fg!65
+insertLevel $level $levelcolor
 insertTitle $title
 insertTikzEnv
 insertEquation
