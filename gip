@@ -1,0 +1,50 @@
+#!/bin/zsh
+
+day=$(date +%d%m%y)
+topic="MEC"
+equationnumber="07"
+title="entropy"
+level="3"
+bg="white!85!orange"
+fg="white!10!purple"
+levelcolor="white!20!purple"
+e="E"
+
+while getopts :h:t:l:L:w:b:f:: opt
+do
+	case "$opt" in
+	h) help
+	   exit ;;
+	T) topic=$OPTARG ;;
+	n) equationnumber=$OPTARG ;;
+	t) title=$OPTARG ;;
+	l) level=$OPTARG ;;
+	L) levelcolor=$OPTARG ;;
+	b) bg=$OPTARG ;;
+	f) fg=$OPTARG ;;
+	*) echo "$opt" ;;
+	esac
+done
+
+
+mkdir $day$topic$equationnumber$e
+cd $_
+
+
+echo "\\\\documentclass{article}" > main.tex
+echo "\\\\usepackage{vaibhavblayer}" >> main.tex
+echo "\\\\instagramp" >> main.tex
+echo "\\\\header{$day}{$topic}{$equationnumber}" >> main.tex
+echo "\\\\footer{$level}" >> main.tex
+
+echo "\\\\begin{document}" >> main.tex
+echo "\\\\pagecolor{$bg}" >> main.tex
+echo "\\\\color{$fg}" >> main.tex
+echo "\\\\title{$title}" >> main.tex
+echo "\\\\vspace*{\\\\fill}" >> main.tex
+
+
+printf "\\\vspace*{\\\fill}\n\\\end{document}" >> main.tex
+
+open -a texmaker main.tex
+
