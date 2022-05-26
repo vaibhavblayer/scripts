@@ -1,5 +1,40 @@
 #!/bin/zsh
 
+function help {
+			printf "SUMMARY OF GEN-PHYS-EQN COMMAND\n\v" | fmt -c
+			
+
+			printf "\t-T topic name\n" | fmt -t 8
+				printf "\t MEC for mechanics (default)\n" | fmt -t 12
+				printf "\t ELS for electrostatics\n" | fmt -t 12
+				printf "\t FLM for fluid mechanics\n" | fmt -t 12
+				printf "\t W for wave\n" | fmt -t 12
+				printf "\t EMW for electromagnetic wave\n" | fmt -t 12
+				printf "\t ELD for electrodynamics\n" | fmt -t 12
+				printf "\t MDP for modern physics\n\n" | fmt -t 12
+			
+			printf "\t-F E for equation(default), P for problem\n" | fmt -t 12
+
+			printf "\t-t title (default is entropy)\n" | fmt -t 8
+			printf "\t-b background color (default is white!85!orange)\n" | fmt -t 8
+			printf "\t-f foreground color (default is white!10!purple)\n" | fmt -t 8
+			printf "\t-l level 1-5 (default is 3)\n" | fmt -t 8
+
+}
+
+function puttikzenv {
+		printf "\\\begin{center}\n\\\begin{tikzpicture}\n" >> main.tex
+		printf "\\\pic (ground) {frame=5cm};\n" >> main.tex
+		printf "\\\draw (ground-center)++(0, 1) circle[radius=1];\n" >> main.tex
+		printf "\\\end{tikzpicture}\n\\\end{center}\n\n" >> main.tex
+	}
+
+
+function puteqn {
+		printf "\\\[\n \\\int_0^5 \\\dfrac{2x}{1+x^2} \\\; d\!x \n\\\]\n\n" >> main.tex
+}
+
+
 day=$(date +%d%m%y)
 topic="MEC"
 equationnumber="07"
@@ -8,18 +43,18 @@ level="3"
 bg="white!85!orange"
 fg="white!10!purple"
 levelcolor="white!20!purple"
-e="E"
+format="E"
 
-while getopts :h:t:l:L:w:b:f:: opt
+while getopts :h:T:F:n:t:l:b:f:: opt
 do
 	case "$opt" in
 	h) help
 	   exit ;;
 	T) topic=$OPTARG ;;
+	F) format=$OPTARG ;;
 	n) equationnumber=$OPTARG ;;
 	t) title=$OPTARG ;;
 	l) level=$OPTARG ;;
-	L) levelcolor=$OPTARG ;;
 	b) bg=$OPTARG ;;
 	f) fg=$OPTARG ;;
 	*) echo "$opt" ;;
@@ -31,20 +66,28 @@ mkdir $day$topic$equationnumber$e
 cd $_
 
 
-echo "\\\\documentclass{article}" > main.tex
-echo "\\\\usepackage{vaibhavblayer}" >> main.tex
-echo "\\\\instagramp" >> main.tex
-echo "\\\\header{$day}{$topic}{$equationnumber}" >> main.tex
-echo "\\\\footer{$level}" >> main.tex
+printf "\\\documentclass{article}\n" > main.tex
+printf "\\\usepackage{vaibhavblayer}\n" >> main.tex
+printf "\\\instagramp\n\n" >> main.tex
+printf "\\\header{$day}{$topic}{$equationnumber}[$format]\n" >> main.tex
+printf "\\\footer{$level}\n\n" >> main.tex
 
-echo "\\\\begin{document}" >> main.tex
-echo "\\\\pagecolor{$bg}" >> main.tex
-echo "\\\\color{$fg}" >> main.tex
-echo "\\\\title{$title}" >> main.tex
-echo "\\\\vspace*{\\\\fill}" >> main.tex
+printf "\\\begin{document}\n\n" >> main.tex
+printf "\\\pagecolor{$bg}\n" >> main.tex
+printf "\\\color{$fg}\n\n" >> main.tex
+printf "\\\title{$title}\n\n" >> main.tex
+printf "\\\vspace*{\\\fill}\n\n" >> main.tex
+
+puttikzenv
+puteqn
 
 
 printf "\\\vspace*{\\\fill}\n\\\end{document}" >> main.tex
 
 open -a texmaker main.tex
+
+
+
+
+
 
