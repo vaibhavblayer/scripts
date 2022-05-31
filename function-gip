@@ -1,0 +1,43 @@
+
+function puttikzenv {
+		printf "\\\begin{center}\n\\\begin{tikzpicture}\n" >> main.tex
+		printf "\\\pic (ground) {frame=5cm};\n" >> main.tex
+		printf "\\\draw (ground-center)++(0, 1) circle[radius=1];\n" >> main.tex
+		printf "\\\end{tikzpicture}\n\\\end{center}\n\n" >> main.tex
+	}
+
+
+function puteqn {
+		printf "\\\[\n \\\int_0^5 \\\dfrac{2x}{1+x^2} \\\; d\!x \n\\\]\n\n" >> main.tex
+}
+
+
+function putheader {
+		printf "\\\header{$1}{$2}{" >> main.tex
+		printf "%02d" $3 >> main.tex
+		printf "}[$4]\n" >> main.tex
+	}
+
+
+function help {
+			printf "SUMMARY OF GEN-PHYS-EQN COMMAND\n\v" | fmt -c
+			
+
+			printf "\t-T topic name\n" | fmt -t 8
+				printf "\t MEC for mechanics (default)\n" | fmt -t 12
+				printf "\t ELS for electrostatics\n" | fmt -t 12
+				printf "\t FLM for fluid mechanics\n" | fmt -t 12
+				printf "\t W for wave\n" | fmt -t 12
+				printf "\t EMW for electromagnetic wave\n" | fmt -t 12
+				printf "\t ELD for electrodynamics\n" | fmt -t 12
+				printf "\t MDP for modern physics\n\n" | fmt -t 12
+			
+			printf "\t-F E for equation(default), P for problem\n" | fmt -t 8
+			printf "\t-n serial number (07 is default)\n" | fmt -t 8
+
+			printf "\t-t title (default is entropy)\n" | fmt -t 8
+			printf "\t-b background color (default is white!85!orange)\n" | fmt -t 8
+			printf "\t-f foreground color (default is white!10!purple)\n" | fmt -t 8
+			printf "\t-l level 1-5 (default is 3)\n" | fmt -t 8
+
+}

@@ -2,5 +2,6 @@
 
 mkdir $(basename $PWD)
 cp main.pdf main.png ./$_
-gdrive upload -p 1LY7t2TMNYOwWVAe08d42LoTb48uq84rQ -r $1
+gdrive upload -p 1LY7t2TMNYOwWVAe08d42LoTb48uq84rQ -r $_
+rm -r $_
  

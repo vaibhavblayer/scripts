@@ -1,43 +1,8 @@
 #!/bin/zsh
 
-function help {
-			printf "SUMMARY OF GEN-PHYS-EQN COMMAND\n\v" | fmt -c
-			
-
-			printf "\t-T topic name\n" | fmt -t 8
-				printf "\t MEC for mechanics (default)\n" | fmt -t 12
-				printf "\t ELS for electrostatics\n" | fmt -t 12
-				printf "\t FLM for fluid mechanics\n" | fmt -t 12
-				printf "\t W for wave\n" | fmt -t 12
-				printf "\t EMW for electromagnetic wave\n" | fmt -t 12
-				printf "\t ELD for electrodynamics\n" | fmt -t 12
-				printf "\t MDP for modern physics\n\n" | fmt -t 12
-			
-			printf "\t-F E for equation(default), P for problem\n" | fmt -t 12
-
-			printf "\t-t title (default is entropy)\n" | fmt -t 8
-			printf "\t-b background color (default is white!85!orange)\n" | fmt -t 8
-			printf "\t-f foreground color (default is white!10!purple)\n" | fmt -t 8
-			printf "\t-l level 1-5 (default is 3)\n" | fmt -t 8
-
-}
-
-function puttikzenv {
-		printf "\\\begin{center}\n\\\begin{tikzpicture}\n" >> main.tex
-		printf "\\\pic (ground) {frame=5cm};\n" >> main.tex
-		printf "\\\draw (ground-center)++(0, 1) circle[radius=1];\n" >> main.tex
-		printf "\\\end{tikzpicture}\n\\\end{center}\n\n" >> main.tex
-	}
-
-
-function puteqn {
-		printf "\\\[\n \\\int_0^5 \\\dfrac{2x}{1+x^2} \\\; d\!x \n\\\]\n\n" >> main.tex
-}
-
-
 day=$(date +%d%m%y)
 topic="MEC"
-equationnumber="07"
+equationnumber=7
 title="entropy"
 level="3"
 bg="white!85!orange"
@@ -45,7 +10,11 @@ fg="white!10!purple"
 levelcolor="white!20!purple"
 format="E"
 
-while getopts :h:T:F:n:t:l:b:f:: opt
+
+. /Users/vaibhavblayer/scripts/function-gip
+
+
+while getopts :hT:F:n:t:l:b:f:: opt
 do
 	case "$opt" in
 	h) help
@@ -62,14 +31,17 @@ do
 done
 
 
-mkdir $day$topic$equationnumber$e
+paddedeqnn=$(printf "%02d" $equationnumber)
+mkdir $day$topic$paddedeqnn$format
 cd $_
 
 
 printf "\\\documentclass{article}\n" > main.tex
 printf "\\\usepackage{vaibhavblayer}\n" >> main.tex
 printf "\\\instagramp\n\n" >> main.tex
-printf "\\\header{$day}{$topic}{$equationnumber}[$format]\n" >> main.tex
+
+putheader $day $topic $equationnumber $format
+
 printf "\\\footer{$level}\n\n" >> main.tex
 
 printf "\\\begin{document}\n\n" >> main.tex

@@ -1,0 +1,49 @@
+#!/bin/zsh
+
+
+# script for connecting wifi network
+
+
+scannetwork(){
+		/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport scan
+}
+
+function connect {	
+		networksetup -setairportnetwork en1 $1 $2
+}
+
+
+help() {
+		printf "AVAILABLE OPTIONS FOR SCRIPT WIFI\n\n" | fmt -c
+		printf "\t -h for getting this manual page\n" | fmt -t 8
+		printf "\t -s for scanning available networks\n" | fmt -t 8
+		printf "\t -n -p work together for conneting to a network\n" | fmt -t 8
+		printf "\t -n takes network name as input (default is iPhone)\n" | fmt -t 12
+		printf "\t -p takes password as input (default is "12345678")\n" | fmt -t 12
+		printf "\t -t for turning off and on the wi-fi\n" | fmt -t 8
+}
+
+
+
+network="iPhone"
+password="12345678"
+
+
+while getopts :hsn:p:t: opt
+do
+	case "$opt" in
+	h) help
+	   exit ;;
+	s) scannetwork ;;
+	n) network=$OPTARG ;;
+	p) password=$OPTARG
+	   connect $network $password ;;
+	t) networksetup -setairportpower en1 $OPTARG ;;
+	*) echo "$opt" ;;
+	esac
+done
+
+
+
+#networksetup -setairportpower en1 on
+#networksetup -setairportnetwork en1 TP-LINK_15F4 Spring@6969#
