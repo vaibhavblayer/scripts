@@ -51,10 +51,12 @@ printf "\\\title{$title}\n\n" >> main.tex
 printf "\\\vspace*{\\\fill}\n\n" >> main.tex
 
 puttikzenv
+printf "\\\vspace*{\\\fill}\n" >> main.tex
 puteqn
+printf "\\\vspace*{\\\fill}\n" >> main.tex
+putlabels
 
-
-printf "\\\vspace*{\\\fill}\n\\\end{document}" >> main.tex
+printf "\\\end{document}" >> main.tex
 
 open -a texmaker main.tex
 

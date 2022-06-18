@@ -19,6 +19,21 @@ function putheader {
 	}
 
 
+
+function putlabels {
+		printf "\\\begin{equation*}\n" >> main.tex
+		printf "\\\eqnmarkbox{a}{a}\n" >> main.tex
+		printf "\\\eqnmarkbox{b}{b}\n" >> main.tex
+		printf "\\\eqnmarkbox{c}{c}\n" >> main.tex
+		printf "\\\eqnmarkbox{d}{d}\n" >> main.tex
+		printf "\\\end{equation*}\n" >> main.tex
+		printf "\\\annotate[yshift=-0.2 em]{below, left}{a}{\\\texttt{alphabet}}\n" >> main.tex
+		printf "\\\annotate[yshift=-1.2 em]{below, left}{b}{\\\texttt{alphabet}}\n" >> main.tex
+		printf "\\\annotate[yshift=-1.2 em]{below, right}{c}{\\\texttt{alphabet}}\n" >> main.tex
+		printf "\\\annotate[yshift=-0.2 em]{below, right}{d}{\\\texttt{alphabet}}\n" >> main.tex
+	}
+
+
 function help {
 			printf "SUMMARY OF GEN-PHYS-EQN COMMAND\n\v" | fmt -c
 			

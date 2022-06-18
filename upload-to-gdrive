@@ -1,7 +1,47 @@
 #!/bin/zsh
 
-mkdir $(basename $PWD)
-cp main.pdf main.png ./$_
-gdrive upload -p 1LY7t2TMNYOwWVAe08d42LoTb48uq84rQ -r $_
-rm -r $_
- 
+
+mechanics="1LY7t2TMNYOwWVAe08d42LoTb48uq84rQ"
+waves="1QVpbDg2bALg1OboBWJKgnd3rpJ8a44S0"
+
+
+
+
+
+function help {
+		printf "SUMMARY OF UPLOAD-TO-GDRIVE\n\v" | fmt -c
+
+		printf "\t-m for mechanics\n" | fmt -t 12
+		printf "\t-w for waves\n" | fmt -t 12
+}
+
+
+function uploadtomechanics {
+		mkdir $(basename $PWD)
+		cp main.pdf main.png ./$_
+		gdrive upload -p $mechanics -r $_
+		rm -r $_
+}
+
+
+
+function uploadtowaves {
+		mkdir $(basename $PWD)
+		cp main.pdf main.png ./$_
+		gdrive upload -p $waves -r $_
+		rm -r $_
+}
+
+
+while getopts :hmw opt
+do
+	case "$opt" in
+	h) help
+	   exit ;;
+	m) uploadtomechanics ;;
+	w) uploadtowaves ;;
+	*) echo "$opt" ;;
+	esac
+done
+
+
