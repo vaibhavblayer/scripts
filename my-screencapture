@@ -13,5 +13,5 @@ mkdir $time
 cd $_
 
 for ((i=1; i<=$n; i++))
-do screencapture -T $dt ./$i.png
+do screencapture -T $dt ./$(printf "%02d" $i).png
 done
