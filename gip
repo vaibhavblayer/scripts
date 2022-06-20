@@ -9,7 +9,7 @@ bg="white!85!orange"
 fg="white!10!purple"
 levelcolor="white!20!purple"
 format="E"
-
+problemtext="This is a physics problem."
 
 . /Users/vaibhavblayer/scripts/function-gip
 
@@ -48,13 +48,35 @@ printf "\\\begin{document}\n\n" >> main.tex
 printf "\\\pagecolor{$bg}\n" >> main.tex
 printf "\\\color{$fg}\n\n" >> main.tex
 printf "\\\title{$title}\n\n" >> main.tex
-printf "\\\vspace*{\\\fill}\n\n" >> main.tex
 
-puttikzenv
-printf "\\\vspace*{\\\fill}\n" >> main.tex
-puteqn
-printf "\\\vspace*{\\\fill}\n" >> main.tex
-putlabels
+
+if [[ $format == "P" ]]
+then
+	printf "\\\problem{$equationnumber}{This is a problem.}\n\n" >> main.tex
+	printf "\\\vspace*{\\\fill}\n" >> main.tex
+	
+	puttikzenv
+	
+	printf "\\\vspace*{\\\fill}\n" >> main.tex
+	printf "\\\options{Option a}{Option b}{Option c}{Option d}\n\n" >> main.tex
+fi
+
+
+
+if [[ $format == "E" ]]
+then	
+	printf "\\\vspace*{\\\fill}\n" >> main.tex
+	
+	puttikzenv
+	
+	printf "\\\vspace*{\\\fill}\n" >> main.tex
+	
+	puteqn
+	
+	printf "\\\vspace*{\\\fill}\n" >> main.tex
+	
+	putlabels
+fi
 
 printf "\\\end{document}" >> main.tex
 
