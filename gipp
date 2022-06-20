@@ -1,0 +1,89 @@
+#!/bin/zsh
+
+day=$(date +%d%m%y)
+topic="MEC"
+equationnumber=7
+title="entropy"
+level="3"
+bg="white!85!orange"
+fg="white!10!purple"
+levelcolor="white!20!purple"
+format="E"
+problemtext="This is a physics problem."
+
+. /Users/vaibhavblayer/scripts/function-gip
+
+
+while getopts :hT:F:n:t:l:b:f:: opt
+do
+	case "$opt" in
+	h) help
+	   exit ;;
+	T) topic=$OPTARG ;;
+	F) format=$OPTARG ;;
+	n) equationnumber=$OPTARG ;;
+	t) title=$OPTARG ;;
+	l) level=$OPTARG ;;
+	b) bg=$OPTARG ;;
+	f) fg=$OPTARG ;;
+	*) echo "$opt" ;;
+	esac
+done
+
+
+paddedeqnn=$(printf "%02d" $equationnumber)
+mkdir $day$topic$paddedeqnn$format
+cd $_
+
+
+printf "\\\documentclass{article}\n" > main.tex
+printf "\\\usepackage{vaibhavblayer}\n" >> main.tex
+printf "\\\instagramp\n\n" >> main.tex
+
+putheader $day $topic $equationnumber $format
+
+printf "\\\footer{$level}\n\n" >> main.tex
+
+printf "\\\begin{document}\n\n" >> main.tex
+printf "\\\pagecolor{$bg}\n" >> main.tex
+printf "\\\color{$fg}\n\n" >> main.tex
+printf "\\\title{$title}\n\n" >> main.tex
+
+
+if [[ $format == "P" ]]
+then
+	printf "\\\problem{$equationnumber}{This is a problem.}\n\n" >> main.tex
+	printf "\\\vspace*{\\\fill}\n" >> main.tex
+	
+	puttikzenv
+	
+	printf "\\\vspace*{\\\fill}\n" >> main.tex
+	printf "\\\options{Option a}{Option b}{Option c}{Option d}\n\n" >> main.tex
+fi
+
+
+
+if [[ $format == "E" ]]
+then	
+	printf "\\\vspace*{\\\fill}\n" >> main.tex
+	
+	puttikzenv
+	
+	printf "\\\vspace*{\\\fill}\n" >> main.tex
+	
+	puteqn
+	
+	printf "\\\vspace*{\\\fill}\n" >> main.tex
+	
+	putlabels
+fi
+
+printf "\\\end{document}" >> main.tex
+
+open -a texmaker main.tex
+
+
+
+
+
+
