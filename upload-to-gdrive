@@ -3,8 +3,8 @@
 
 mechanics="1LY7t2TMNYOwWVAe08d42LoTb48uq84rQ"
 waves="1QVpbDg2bALg1OboBWJKgnd3rpJ8a44S0"
-
-
+magnetics="1adSBRghS4FQCK47VnCIwQVwCAfrVfzYS"
+pmagnetics="1s_dqV66vkB8h3IZpzjRx9YfDi1Id8B-m"
 
 
 
@@ -32,14 +32,31 @@ function uploadtowaves {
 		rm -r $_
 }
 
+function uploadtomagnetics {
+		mkdir $(basename $PWD)
+		cp main.pdf main.png ./$_
+		gdrive upload -p $magnetics -r $_
+		rm -r $_
+}
 
-while getopts :hmw opt
+
+function uploadtopmagnetics {
+		mkdir $(basename $PWD)
+		cp main.pdf main.png ./$_
+		gdrive upload -p $pmagnetics -r $_
+		rm -r $_
+}
+
+
+while getopts :hmwgM opt
 do
 	case "$opt" in
 	h) help
 	   exit ;;
 	m) uploadtomechanics ;;
 	w) uploadtowaves ;;
+	g) uploadtomagnetics ;;
+	M) uploadtopmagnetics ;;
 	*) echo "$opt" ;;
 	esac
 done

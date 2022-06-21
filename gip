@@ -45,6 +45,12 @@ putheader $day $topic $equationnumber $format
 printf "\\\footer{$level}\n\n" >> main.tex
 
 printf "\\\begin{document}\n\n" >> main.tex
+
+if [[ $format == "P" ]]
+then
+	printf "\\\small\n" >> main.tex
+fi
+
 printf "\\\pagecolor{$bg}\n" >> main.tex
 printf "\\\color{$fg}\n\n" >> main.tex
 printf "\\\title{$title}\n\n" >> main.tex
